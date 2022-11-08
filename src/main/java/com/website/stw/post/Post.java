@@ -1,4 +1,4 @@
-package com.website.stw;
+package com.website.stw.post;
 
 import lombok.Getter;
 import lombok.Setter;
