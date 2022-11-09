@@ -22,7 +22,7 @@ public class Post {
 
     private LocalDateTime created_date;
 
-    private Integer max_num; // 최대 인원
+    private Integer max_num; // 정원
     private Integer cur_num; // 현재 인원
 
     @Column(length = 11)

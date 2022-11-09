@@ -1,0 +1,18 @@
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>현재 인원</th>
+        <th>정원</th>
+        <th>작성일시</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${postList}">
+        <td th:text="${post.subject}"></td>
+        <td th:text="${post.cur_num}"></td>
+        <td th:text="${post.max_num}"></td>
+        <td th:text="${post.created_date}"></td>
+    </tr>
+    </tbody>
+</table>
