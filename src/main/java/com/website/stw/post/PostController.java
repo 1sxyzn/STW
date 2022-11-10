@@ -11,11 +11,11 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private final PostRepository postRepository;
+    private final PostService postService;
 
     @RequestMapping("/post/list")
     public String list(Model model){
-        List<Post> postList = this.postRepository.findAll();
+        List<Post> postList = this.postService.getList();
         model.addAttribute("postList", postList);
         return "post_list";
     }
