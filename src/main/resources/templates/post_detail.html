@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<div class="container my-3">
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
     <!-- 추후 현재 인원 / 정원 표시 및 참가하기 버튼 추가하기 -->
     <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
     <div class="card my-3">
@@ -13,3 +13,4 @@
         </div>
     </div>
 </div>
+</html>
