@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -27,5 +29,17 @@ public class PostController {
         Post post = this.postService.getPost(id);
         model.addAttribute("post",post);
         return "post_detail";
+    }
+
+    @RequestMapping(value = "/create")
+    public String postCreate(){
+        return "post_form";
+    }
+
+    @PostMapping("/create")
+    // 메소드 오버로딩
+    public String postCreate(@RequestParam String subject, @RequestParam Integer max_num, @RequestParam String content){
+        this.postService.create(subject, max_num, content);
+        return "redirect:/post/list";
     }
 }

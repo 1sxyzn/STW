@@ -25,7 +25,6 @@ class StwApplicationTests {
         p1.setContent("Back-End intern");
         p1.setMax_num(30);
         p1.setCur_num(0);
-        p1.setPhone("01001230123");
         p1.setCreated_date(LocalDateTime.now());
         this.postRepository.save(p1);
     }
