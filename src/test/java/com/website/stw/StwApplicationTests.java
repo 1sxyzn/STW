@@ -2,6 +2,7 @@ package com.website.stw;
 
 import com.website.stw.post.Post;
 import com.website.stw.post.PostRepository;
+import com.website.stw.post.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,19 @@ class StwApplicationTests {
 
     @Autowired // DI, 객체 자동 생성 및 주입 (테스트 코드에서만 사용할 예정)
     private PostRepository postRepository;
+    @Autowired
+    private PostService postService;
+
+    //테스트 데이터 300개 생성
+    @Test
+    void testCreateData() {
+        for (int i = 1; i <= 300; i++) {
+            String subject = String.format("Search The Web : Data [%03d]", i);
+            Integer max_num = 80;
+            String content = "Test Data";
+            this.postService.create(subject, max_num, content);
+        }
+    }
 
     @Test
     void testCreatePost(){
