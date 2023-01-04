@@ -1,12 +1,14 @@
 package com.website.stw.post;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,9 +21,9 @@ public class PostController {
     private final PostService postService;
 
     @RequestMapping("/list")
-    public String list(Model model){
-        List<Post> postList = this.postService.getList();
-        model.addAttribute("postList", postList);
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page){
+        Page<Post> paging = this.postService.getList(page);
+        model.addAttribute("paging", paging);
         return "post_list";
     }
 
@@ -43,7 +45,7 @@ public class PostController {
         if (bindingResult.hasErrors()) { //오류 있는 경우, 폼 다시 작성
             return "post_form";
         }
-        this.postService.create(postForm.getSubject(), postForm.getMax_num(), postForm.getContent());
+        this.postService.create(postForm.getSubject(), postForm.getMaxNum(), postForm.getContent());
         return "redirect:/post/list";
     }
 }

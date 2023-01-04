@@ -20,10 +20,10 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDateTime created_date;
+    private LocalDateTime createdDate;
 
-    private Integer max_num; // 정원
-    private Integer cur_num; // 현재 인원
+    private Integer maxNum; // 정원
+    private Integer curNum; // 현재 인원
 
 //    User Entity에 포함시키기
 //    @Column(length = 11)

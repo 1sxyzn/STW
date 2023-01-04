@@ -17,7 +17,7 @@ public class PostForm {
     @NotNull(message = "정원을 입력해주세요.")
     @Min(1)
     @Max(999)
-    private Integer max_num;
+    private Integer maxNum;
 
     @NotEmpty(message = "내용을 입력해주세요.")
     private String content;

@@ -26,9 +26,9 @@ class StwApplicationTests {
     void testCreateData() {
         for (int i = 1; i <= 300; i++) {
             String subject = String.format("Search The Web : Data [%03d]", i);
-            Integer max_num = 80;
+            Integer maxNum = 80;
             String content = "Test Data";
-            this.postService.create(subject, max_num, content);
+            this.postService.create(subject, maxNum, content);
         }
     }
 
@@ -37,9 +37,9 @@ class StwApplicationTests {
         Post p1 = new Post();
         p1.setSubject("2023 winter internship");
         p1.setContent("Back-End intern");
-        p1.setMax_num(30);
-        p1.setCur_num(0);
-        p1.setCreated_date(LocalDateTime.now());
+        p1.setMaxNum(30);
+        p1.setCurNum(0);
+        p1.setCreatedDate(LocalDateTime.now());
         this.postRepository.save(p1);
     }
 
