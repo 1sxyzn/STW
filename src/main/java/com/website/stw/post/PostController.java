@@ -3,11 +3,12 @@ package com.website.stw.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/post")
@@ -32,14 +33,17 @@ public class PostController {
     }
 
     @RequestMapping(value = "/create")
-    public String postCreate(){
+    public String postCreate(PostForm postForm){
         return "post_form";
     }
 
     @PostMapping("/create")
     // 메소드 오버로딩
-    public String postCreate(@RequestParam String subject, @RequestParam Integer max_num, @RequestParam String content){
-        this.postService.create(subject, max_num, content);
+    public String postCreate(@Valid PostForm postForm, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) { //오류 있는 경우, 폼 다시 작성
+            return "post_form";
+        }
+        this.postService.create(postForm.getSubject(), postForm.getMax_num(), postForm.getContent());
         return "redirect:/post/list";
     }
 }
