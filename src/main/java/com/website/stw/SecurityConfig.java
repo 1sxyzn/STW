@@ -2,6 +2,8 @@ package com.website.stw;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,12 +25,26 @@ public class SecurityConfig {
                 .and()
                     .headers()
                     .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)); // Frame 구조로 작성된 H2 화면 오류 해결을 위해..
+                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)) // Frame 구조로 작성된 H2 화면 오류 해결을 위해..
+                .and()
+                    .formLogin().loginPage("/user/login").defaultSuccessUrl("/")
+                .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true);
         return http.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // 스프링 시큐리티의 인증 담당
+    // 빈 생성시 UserSecurityService, PasswordEncoder가 자동으로 설정
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
