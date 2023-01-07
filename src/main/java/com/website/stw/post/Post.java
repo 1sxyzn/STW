@@ -24,8 +24,4 @@ public class Post {
 
     private Integer maxNum; // 정원
     private Integer curNum; // 현재 인원
-
-//    User Entity에 포함시키기
-//    @Column(length = 11)
-//    private String phone;
 }
