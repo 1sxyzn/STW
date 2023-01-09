@@ -4,14 +4,13 @@ import com.website.stw.user.SiteUser;
 import com.website.stw.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -55,5 +54,32 @@ public class PostController {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.postService.create(postForm.getSubject(), postForm.getMaxNum(), postForm.getContent(), siteUser);
         return "redirect:/post/list";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String postModify(PostForm postForm, @PathVariable("id") Integer id, Principal principal) {
+        Post post = this.postService.getPost(id);
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+        }
+        postForm.setSubject(post.getSubject());
+        postForm.setContent(post.getContent());
+        postForm.setMaxNum(post.getMaxNum());
+        return "post_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String postModify(@Valid PostForm postForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "post_form";
+        }
+        Post post = this.postService.getPost(id);
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+        }
+        this.postService.modify(post, postForm.getSubject(), postForm.getContent(), String.valueOf(postForm.getMaxNum()));
+        return String.format("redirect:/post/detail/%s", id);
     }
 }

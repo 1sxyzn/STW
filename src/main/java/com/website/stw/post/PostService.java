@@ -53,4 +53,12 @@ public class PostService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.postRepository.findAll(pageable);
     }
+
+    public void modify(Post post, String subject, String content, String maxNum) {
+        post.setSubject(subject);
+        post.setContent(content);
+        post.setMaxNum(Integer.valueOf(maxNum));
+        post.setModifiedDate(LocalDateTime.now());
+        this.postRepository.save(post);
+    }
 }

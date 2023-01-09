@@ -22,6 +22,7 @@ public class Post {
     private String content;
 
     private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
     private Integer maxNum; // 정원
     private Integer curNum; // 현재 인원
