@@ -28,7 +28,7 @@ class StwApplicationTests {
             String subject = String.format("Search The Web : Data [%03d]", i);
             Integer maxNum = 80;
             String content = "Test Data";
-            this.postService.create(subject, maxNum, content);
+            this.postService.create(subject, maxNum, content, null);
         }
     }
 

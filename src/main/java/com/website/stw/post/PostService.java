@@ -2,6 +2,7 @@
 
 package com.website.stw.post;
 
+import com.website.stw.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,13 +36,14 @@ public class PostService {
         }
     }
 
-    public void create(String subject, Integer maxNum, String content){
+    public void create(String subject, Integer maxNum, String content, SiteUser user){
         Post p = new Post();
         p.setSubject(subject);
         p.setMaxNum(maxNum);
         p.setCurNum(0);
         p.setContent(content);
         p.setCreatedDate(LocalDateTime.now());
+        p.setAuthor(user);
         this.postRepository.save(p);
     }
 

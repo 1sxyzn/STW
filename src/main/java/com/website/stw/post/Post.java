@@ -1,5 +1,6 @@
 package com.website.stw.post;
 
+import com.website.stw.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,7 @@ public class Post {
 
     private Integer maxNum; // 정원
     private Integer curNum; // 현재 인원
+
+    @ManyToOne
+    private SiteUser author; // 작성자
 }

@@ -1,7 +1,7 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">인원 모집</h5>
-    <form th:action="@{/post/create}" th:object="${postForm}" method="post">\
+    <form th:action="@{/post/create}" th:object="${postForm}" method="post">
         <!--오류 템플릿 사용-->
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">

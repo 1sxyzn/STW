@@ -7,6 +7,7 @@
             <th>제목</th>
             <th>현재 인원</th>
             <th>정원</th>
+            <th>작성자</th>
             <th>작성일시</th>
         </tr>
         </thead>
@@ -16,6 +17,7 @@
             <td><a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a></td>
             <td th:text="${post.curNum}"></td>
             <td th:text="${post.maxNum}"></td>
+            <td><span th:if="${post.author != null}" th:text="${post.author.username}"></span></td>
             <td th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
