@@ -2,9 +2,10 @@
 <div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>번호</th>
             <th>제목</th>
+            <th>진행</th>
             <th>현재 인원</th>
             <th>정원</th>
             <th>작성자</th>
@@ -12,9 +13,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="post, loop : ${paging}">
+        <tr class="text-center" th:each="post, loop : ${paging}">
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-            <td><a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a></td>
+            <td>
+                <a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a>
+            </td>
+            <td>
+                <span class="text-danger small ms-2"
+                      th:if="${post.curNum == post.maxNum}"
+                      th:text="마감">
+                </span>
+                <span class="text-secondary small ms-2"
+                      th:if="${post.curNum != post.maxNum}"
+                      th:text="진행중">
+                </span>
+            </td>
             <td th:text="${post.curNum}"></td>
             <td th:text="${post.maxNum}"></td>
             <td><span th:if="${post.author != null}" th:text="${post.author.username}"></span></td>
