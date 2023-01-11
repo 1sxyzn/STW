@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,4 +30,7 @@ public class Post {
 
     @ManyToOne
     private SiteUser author; // 작성자
+
+    @ManyToMany
+    Set<SiteUser> participant; // 참여자
 }

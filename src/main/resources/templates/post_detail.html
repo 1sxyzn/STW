@@ -19,6 +19,11 @@
                 </div>
             </div>
             <div class="my-3">
+                <a href="javascript:void(0);" th:data-uri="@{|/post/add/${post.id}|}"
+                   class="add btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()">
+                    참여
+                    <span class="badge rounded-pill bg-success" th:text="${post.curNum}"></span>
+                </a>
                 <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
                    th:text="수정"></a>
@@ -26,4 +31,14 @@
         </div>
     </div>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+    const add_elements = document.getElementsByClassName("add");
+    Array.from(add_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 참여하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </html>

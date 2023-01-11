@@ -40,7 +40,7 @@ public class PostService {
         Post p = new Post();
         p.setSubject(subject);
         p.setMaxNum(maxNum);
-        p.setCurNum(0);
+        p.setCurNum(1);
         p.setContent(content);
         p.setCreatedDate(LocalDateTime.now());
         p.setAuthor(user);
