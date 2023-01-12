@@ -14,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 @RequestMapping("/post")
 @RequiredArgsConstructor // final 붙은 속성을 포함한 생성자를 자동 생성해줌
