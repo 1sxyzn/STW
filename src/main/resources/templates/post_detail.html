@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="my-3">
-                <a href="javascript:void(0);" th:data-uri="@{|/post/add/${post.id}|}"
+                <a href="javascript:void(0);" th:data-uri="@{|/post/join/${post.id}|}"
                    class="add btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()">
                     참여
                     <span class="badge rounded-pill bg-success" th:text="${post.curNum}"></span>

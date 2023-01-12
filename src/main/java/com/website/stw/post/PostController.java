@@ -82,4 +82,13 @@ public class PostController {
         this.postService.modify(post, postForm.getSubject(), postForm.getContent(), String.valueOf(postForm.getMaxNum()));
         return String.format("redirect:/post/detail/%s", id);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/join/{id}")
+    public String postJoin(Principal principal, @PathVariable("id") Integer id) {
+        Post post = this.postService.getPost(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.postService.join(post, siteUser);
+        return String.format("redirect:/post/detail/%s", id);
+    }
 }
