@@ -9,7 +9,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" href="#">마이페이지</a>
+                    <div class="nav-link" sec:authorize="isAuthenticated()" sec:authentication="name"></div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/signup}">회원가입</a>

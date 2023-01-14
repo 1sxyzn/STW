@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashSet;
+import java.util.Set;
 
 @RequestMapping("/post")
 @RequiredArgsConstructor // final 붙은 속성을 포함한 생성자를 자동 생성해줌
@@ -33,7 +35,16 @@ public class PostController {
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
         Post post = this.postService.getPost(id);
+        Set<String> masking = new HashSet<>();
+        for(SiteUser s : post.participant){
+            String mask = s.getUsername().substring(0,2);
+            for(int ast=2; ast<s.getUsername().length(); ast++){
+                mask += "*";
+            }
+            masking.add(mask);
+        }
         model.addAttribute("post",post);
+        model.addAttribute("masking",masking);
         return "post_detail";
     }
 

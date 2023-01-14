@@ -1,6 +1,5 @@
 <html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
 <div layout:fragment="content" class="container my-3">
-    <!-- 추후 현재 인원 / 정원 표시 및 참가하기 버튼 추가하기 -->
     <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
     <div class="badge rounded-pill bg-light text-dark">
         <span th:if="${post.author != null}">작성자 : <span th:text="${post.author.username}"></span></span>
@@ -32,6 +31,19 @@
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
                    th:text="수정"></a>
             </div>
+        </div>
+    </div>
+    <!--참여자 목록-->
+    <div class="card my-3" th:each="participant : ${post.participant}"
+         sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getUsername() == post.author.username}">
+        <div class="card-body">
+            <p><pre><b>참여자</b>    <b>[ID]</b> [[${participant.username}]]    <b>[E-mail]</b> [[${participant.email}]]    <b>[전화번호]</b> [[${participant.phone}]]</pre></p>
+        </div>
+    </div>
+    <div class="card my-3" th:each="participant : ${masking}"
+         sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getUsername() != post.author.username}">
+        <div class="card-body">
+            <p><pre><b>참여자</b>    <b>[ID]</b> [[${participant}]]</pre></p>
         </div>
     </div>
 </div>
